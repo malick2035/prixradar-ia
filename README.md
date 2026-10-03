@@ -1,6 +1,6 @@
 # 📡 PrixRadar.IA
 
-**Voir venir les hausses de prix alimentaires en Afrique de l'Ouest.**
+**Le bon moment et le bon endroit pour acheter.**
 
 PrixRadar.IA aide les commerçants, les ménages, les producteurs, les ONG et les décideurs publics du **Bénin**, du **Togo**, du **Niger** et du **Sénégal** à planifier leurs achats : **à quelle période** et **dans quelle zone** les produits alimentaires coûtent habituellement le moins cher, à partir des prix officiels du Programme alimentaire mondial (PAM).
 
