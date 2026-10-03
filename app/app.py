@@ -37,6 +37,11 @@ def mois_annee(aaaa_mm: str) -> str:
     return f"{MOIS_LONG[int(m) - 1]} {a}"
 
 
+def virgule(n) -> str:
+    """Nombre décimal à la française (13,4 au lieu de 13.4)."""
+    return str(n).replace(".", ",")
+
+
 def age_jours(aaaa_mm: str) -> int:
     return (date.today() - date(int(aaaa_mm[:4]), int(aaaa_mm[5:]), 15)).days
 
@@ -45,7 +50,7 @@ R = charger()
 
 # ---------- Barre latérale ----------
 st.sidebar.title("📡 PrixRadar.IA")
-st.sidebar.caption("Voir venir les hausses de prix alimentaires en Afrique de l'Ouest")
+st.sidebar.caption("Le bon moment et le bon endroit pour acheter")
 pays = st.sidebar.selectbox("Pays", ["Bénin", "Togo", "Niger", "Sénégal"])
 produits = sorted(R["produits"][pays], key=str.lower)
 produit = st.sidebar.selectbox("Produit", produits, index=produits.index("Tomates") if "Tomates" in produits else 0)
@@ -104,11 +109,11 @@ with T["📅 Quand acheter ?"]:
         t = x.get("test_tendance")
         if t:
             if t["erreur_tendance"] <= 0.8 * t["erreur_naive"]:
-                st.caption(f"✅ Profil testé sur {t['annee_testee']} : à 3 mois, erreur moyenne de {t['erreur_tendance']} % "
-                           f"contre {t['erreur_naive']} % si l'on suppose que le prix ne bouge pas.")
+                st.caption(f"✅ Profil testé sur {t['annee_testee']} : à 3 mois, erreur moyenne de {virgule(t['erreur_tendance'])} % "
+                           f"contre {virgule(t['erreur_naive'])} % si l'on suppose que le prix ne bouge pas.")
             else:
                 st.caption(f"⚠️ Profil indicatif : testé sur {t['annee_testee']}, il n'a pas mieux prévu les prix qu'une "
-                           f"méthode simple ({t['erreur_tendance']} % d'erreur contre {t['erreur_naive']} %).")
+                           f"méthode simple ({virgule(t['erreur_tendance'])} % d'erreur contre {virgule(t['erreur_naive'])} %).")
         st.caption(f"Méthode : indice calculé marché par marché ({x['marches_saison']} marchés, fiabilité {x.get('fiabilite_saison', 'n.d.')}), "
                    "années complètes depuis 2020, médiane. Les traits verticaux montrent la plage où se situent la moitié des marchés et des années "
                    "(du 1er au 3e quartile) : plus ils sont longs, plus le profil varie d'un marché à l'autre.")
