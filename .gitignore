@@ -1,0 +1,5 @@
+data/brut/*.csv
+__pycache__/
+*.pyc
+.env
+.streamlit/secrets.toml

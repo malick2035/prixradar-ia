@@ -1,0 +1,11 @@
+cff-version: 1.3.0
+message: "Si vous utilisez PrixRadar.IA, merci de le citer ainsi."
+title: "PrixRadar.IA : repères de prix alimentaires pour le Bénin, le Togo, le Niger et le Sénégal"
+version: 1.3.0
+date-released: 2026-10-01
+authors:
+  - family-names: OKASSE
+    given-names: Malick
+license: MIT
+repository-code: "https://github.com/malick2035/prixradar-ia"
+keywords: [sécurité alimentaire, prix, Afrique de l'Ouest, données ouvertes, bien public numérique]
