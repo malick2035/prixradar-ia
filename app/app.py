@@ -23,6 +23,7 @@ MOIS_LONG = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "
 # Palette lisible par les personnes daltoniennes (bleu / orange), toujours doublée d'un libellé
 MOINS_CHER, PLUS_CHER, NEUTRE = "#1B6FA8", "#C8572B", "#9AA8A3"
 FRAICHEUR_MAX_JOURS = 60
+LIEN_AVIS = "https://forms.gle/aCHV6ypCXnZ14LMs8"
 COMMUNES_NON_SUIVIES = {"Atacora": ["Boukombé", "Kouandé", "Matéri", "Toucountouna"], "Donga": ["Copargo"]}
 
 
@@ -35,6 +36,12 @@ def charger():
 def mois_annee(aaaa_mm: str) -> str:
     a, m = aaaa_mm.split("-")
     return f"{MOIS_LONG[int(m) - 1]} {a}"
+
+
+def date_fr(aaaa_mm_jj: str) -> str:
+    """2026-10-02 devient 2 octobre 2026."""
+    a, m, j = aaaa_mm_jj.split("-")
+    return f"{int(j)} {MOIS_LONG[int(m) - 1]} {a}"
 
 
 def virgule(n) -> str:
@@ -55,9 +62,12 @@ pays = st.sidebar.selectbox("Pays", ["Bénin", "Togo", "Niger", "Sénégal"])
 produits = sorted(R["produits"][pays], key=str.lower)
 produit = st.sidebar.selectbox("Produit", produits, index=produits.index("Tomates") if "Tomates" in produits else 0)
 st.sidebar.markdown("---")
+st.sidebar.link_button("📝 Donner mon avis (3 min)", LIEN_AVIS, width="stretch")
+st.sidebar.caption("Vous testez PrixRadar.IA ? Votre avis nous aide à l'améliorer.")
+st.sidebar.markdown("---")
 st.sidebar.caption(
     f"Prototype. Source : Programme alimentaire mondial (PAM), via HDX, licence CC BY-IGO. "
-    f"Prix de détail en FCFA. Calcul du {R['meta']['date_calcul']}. "
+    f"Prix de détail en FCFA. Calcul du {date_fr(R['meta']['date_calcul'])}. "
     f"{R['meta']['valeurs_ecartees']:,} relevés aberrants écartés.".replace(",", " "))
 
 x = R["produits"][pays][produit]
@@ -199,6 +209,7 @@ with T["🌍 Comparer les pays"]:
 # ---------- Pied de page ----------
 st.markdown("---")
 st.markdown("**PrixRadar.IA** · prototype · [Code et documentation](https://github.com/malick2035/prixradar-ia) · "
-            "Contact : data.malick9@gmail.com")
+            "Contact : data.malick9@gmail.com · "
+            f"[📝 Donner mon avis]({LIEN_AVIS})")
 st.caption("PrixRadar.IA ne vous demandera jamais un code secret, un mot de passe ou un transfert d'argent. "
            "Les tendances passées ne garantissent pas les prix futurs.")
